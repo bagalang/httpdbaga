@@ -1,7 +1,26 @@
 # httpdbaga
 
 A multi-protocol HTTP server library + demo for Baga, built only on `std/`
-(`net`, `io`, `os`, `str`, `bytes`):
+(`net`, `io`, `os`, `str`, `bytes`).
+
+This repository is the package. The compiler and `std` stay in the baga
+language monorepo. Check this tree out as `app-product/httpdbaga` there
+(git submodule) so path deps and `-I app-product` keep working.
+
+## Checkout
+
+Inside a baga language clone:
+
+```bash
+git submodule update --init app-product/httpdbaga
+# or, first time from a fresh baga tree without the submodule recorded:
+git clone git@github.com:bagalang/httpdbaga.git app-product/httpdbaga
+```
+
+`sandak.toml` keeps `std = { path = "../../std" }`. Consumers
+(`fmrbaga`, `boilaDB`, `cloudbaga`, `wsbaga`, `jwtbaga`, `oauthbaga`,
+`jsonrpcbaga`) and tests (`http_test`, `h2_test`, `hpack_test`) stay
+in baga.
 
 - **HTTP/1.1** — buffered request parsing (8 KiB reads, not one syscall per
   byte), persistent connections (keep-alive), chunked request bodies,
