@@ -157,3 +157,7 @@ itself is mutex-protected (multi-threaded allocations are safe; see
   appears on a terminal or at exit only. Use stderr (`eprintln`) for logs in
   backgrounded runs.
 - **Pool mode answers `Connection: close` on HTTP/1.1** (see Modes above).
+
+## License
+
+[MIT](LICENSE) — Copyright (c) 2026 Dim Gigov.
