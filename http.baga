@@ -520,6 +520,7 @@ fn reason_phrase(status: i64) -> str {
     if status == 404 { return "Not Found" }
     if status == 405 { return "Method Not Allowed" }
     if status == 409 { return "Conflict" }
+    if status == 423 { return "Locked" }
     if status == 412 { return "Precondition Failed" }
     if status == 415 { return "Unsupported Media Type" }
     if status == 502 { return "Bad Gateway" }
