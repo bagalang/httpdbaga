@@ -147,10 +147,13 @@ fn pool_worker(ctx: i64) -> i64 !IO !Net !Par {
     let mut running = true
     while running {
         let p = chan_recv2(ch)
-        if cell2_0(p) == 0 {
+        let ok = cell2_0(p)
+        let fd = cell2_1(p)
+        cell2_free(p)
+        if ok == 0 {
             running = false
         } else {
-            serve_conn(cell2_1(p), close_mode)?
+            serve_conn(fd, close_mode)?
         }
     }
     return 0
