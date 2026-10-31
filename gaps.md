@@ -132,7 +132,13 @@ buffer and one extra copy.
 **Verdict.** **Unblocked 2026-08-05** — `bytes_new`/`bytes_set`/`bytes_push`
 shipped; h2/hpack builder migration optional.
 
-## G10 — `extern fn` cannot take `bytes` (binary FFI needs a workaround)
+## G10 — ~~`extern fn` cannot take `bytes`~~ — **closed 2026-10-31** (C backend)
+
+`bytes` параметър и връщан тип вече се поддържат: checker позволява
+`bytes` в extern сигнатури, codegen емитира `baga_bytes` (дефиниран в
+runtime-а преди extern прототипите), call site предава struct-а по стойност.
+Тест: `tests/g10_extern_bytes_test.baga` + `tests/g10_shim.c`.
+LLVM backend все още е C-only за extern bytes (следва).
 
 **Symptom.** The checker restricts `extern fn` parameters to `i64`/`f64`/
 `str` ("неподдържан тип на параметър"), so a binary buffer cannot cross the
@@ -251,7 +257,7 @@ optional cleanup, not a blocker.
 | G4 error location on imbalance | YAGNI | fold into a future diagnostics pass |
 | G8 `chr()` UTF-8 only (poke8 ≥ 128 broken) | roadmap | raw byte constructor + poke8 fix |
 | G9 no `bytes` mutators | **unblocked 2026-08-05** | `bytes_new`/`bytes_set`/`bytes_push` shipped; builder migration optional |
-| G10 extern can't take `bytes` | roadmap | `bytes` FFI parameters |
+| G10 extern `bytes` params | **closed** (C backend, 2026-10-31) | LLVM backend pending |
 | G11 arena not thread-safe | **closed** | mutex in the emitted runtime (fixed 2026-08-03) |
 | G12 bitwise-vs-compare precedence | roadmap | precedence change or diagnostic |
 | G13 error attribution across imports | roadmap | diagnostics pass (positions through imports) |
